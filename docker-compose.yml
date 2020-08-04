@@ -1,0 +1,25 @@
+version: '2'
+services:
+    web:
+        build: .
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/code
+        depends_on:
+            - redis
+        environment: 
+            - RQ_REDIS_URL=redis://redis:6379/0
+            - REDIS_URL=redis://redis:6379/0
+    redis:
+        image: redis
+
+    worker:
+        build: .
+        command: python worker.py
+        volumes:
+            - .:/code
+        depends_on:
+            - redis
+        environment: 
+            - RQ_REDIS_URL=redis://redis:6379/0
