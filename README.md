@@ -1,3 +1,3 @@
 # AtlanTask
-clone directry and
+clone directory and
 run docker-compose up
